@@ -9,6 +9,7 @@ ___
 * On click adds recipe to the main window (change in servings changes the overall quantity of ingredients)
 * Adding to the shopping list creates a new list of ingredients (where each ingredient quantity can be manually changed)
 * Liking the recipe adds to to the local storage, creates a new list on top of the website (displays liked recipes on hover)
+___
 
 ###  What i have learned:
 
