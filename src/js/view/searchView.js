@@ -1,25 +1,25 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-return-assign */
 // SEARCH VIEW
 import { elements } from './base';
-
 
 // ADD and RENDER RESULTS + PAGE BUTTONS
 
 // highlight selected results
-export const highlighSelected = id => {
-    // clear all previous selected
-    document.querySelectorAll(`.results__link`).forEach(el => el.classList.remove('results__link--active'));
+export const highlighSelected = (id) => {
+  // clear all previous selected
+  document.querySelectorAll('.results__link').forEach((el) => el.classList.remove('results__link--active'));
 
-    // highlight
-    document.querySelector(`.results__link[href="#${id}"]`).classList.add('results__link--active');
-}
+  // highlight
+  document.querySelector(`.results__link[href="#${id}"]`).classList.add('results__link--active');
+};
 
-
-// get value from the search input 
+// get value from the search input
 export const getInput = () => elements.searchInput.value;
 
 // render each el of the recipes array
-const renderRecipe = recipe => {
-    const markup = `
+const renderRecipe = (recipe) => {
+  const markup = `
         <li>
         <a class="results__link" href="#${recipe.recipe_id}">
             <figure class="results__fig">
@@ -32,7 +32,7 @@ const renderRecipe = recipe => {
         </a>
     </li>
     `;
-    elements.searchResultsList.insertAdjacentHTML('beforeend', markup);
+  elements.searchResultsList.insertAdjacentHTML('beforeend', markup);
 };
 
 // implementing pagination - create buttons
@@ -46,66 +46,61 @@ const createBtn = (page, type) => `
     </button>
 `;
 
-
 // implementing pagination
 const renderButton = (page, recPerPage, numOfRecipes) => {
-    const numOfPages = Math.ceil(numOfRecipes/recPerPage);
-    let button;
+  const numOfPages = Math.ceil(numOfRecipes / recPerPage);
+  let button;
 
-    if (page === 1 && numOfPages > 1) {
-        // display only 'next page' btn
-        button = createBtn(page, 'next');
-    } else if (page === numOfPages && numOfPages > 1) {
-        // display only 'previous page' btn
-        button = createBtn(page, 'prev');
-    } else if (page < numOfPages ) {
-        // display multiple btns
-        button = `
+  if (page === 1 && numOfPages > 1) {
+    // display only 'next page' btn
+    button = createBtn(page, 'next');
+  } else if (page === numOfPages && numOfPages > 1) {
+    // display only 'previous page' btn
+    button = createBtn(page, 'prev');
+  } else if (page < numOfPages) {
+    // display multiple btns
+    button = `
         ${createBtn(page, 'next')}
         ${createBtn(page, 'prev')}
         `;
-    }
-    elements.resultsPages.insertAdjacentHTML('afterbegin', button);
+  }
+  elements.resultsPages.insertAdjacentHTML('afterbegin', button);
 };
 
 // render results from the API call
 export const renderResults = (recipes, page = 1, recPerPage = 10) => {
+  // slice recipes array to display recPerPage num of recipes per page
+  const start = (page - 1) * recPerPage;
+  const end = page * recPerPage;
+  recipes.slice(start, end).forEach(renderRecipe);
 
-    // slice recipes array to display recPerPage num of recipes per page
-    const start = (page - 1) * recPerPage;
-    const end = page * recPerPage;
-    recipes.slice(start, end).forEach(renderRecipe);
-    
-    // implement pagination - render buttons
-    renderButton(page, recPerPage, recipes.length);
+  // implement pagination - render buttons
+  renderButton(page, recPerPage, recipes.length);
 };
-
 
 // CLEAR RESULTS
 
 // clear search input
 export const clearSearchInput = () => elements.searchForm.reset();
 
-// clear previous results 
+// clear previous results
 export const clearPreviousResults = () => elements.searchResultsList.innerHTML = '';
 
 export const clearBtns = () => elements.resultsPages.innerHTML = '';
 
 // reduce title length
 export const reduceTitle = (title, limit = 17) => {
-    const newTitle = [];
+  const newTitle = [];
 
-    if (title.length > limit) {
-        title.split(' ').reduce((acc, curr) => {
-            if (acc + curr.length <= limit) {
-                newTitle.push(curr);
-            }
-            return acc + curr.length;
-        }, 0)
+  if (title.length > limit) {
+    title.split(' ').reduce((acc, curr) => {
+      if (acc + curr.length <= limit) {
+        newTitle.push(curr);
+      }
+      return acc + curr.length;
+    }, 0);
 
-        return `${newTitle.join(' ')} ...`;
-    }
-    return title; 
+    return `${newTitle.join(' ')} ...`;
+  }
+  return title;
 };
-
-

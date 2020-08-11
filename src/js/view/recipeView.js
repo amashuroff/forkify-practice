@@ -1,7 +1,30 @@
-import { elements } from './base';
+/* eslint-disable no-param-reassign */
 import { Fraction } from 'fractional';
+import { elements } from './base';
 
-const createIngredient = ingredient => `
+const formatCount = (count) => {
+  if (count) {
+    // 2.5 --> 2 1/2
+    // use max 4 decimal places
+    const newCount = Math.round(count * 10000) / 10000;
+    const [int, dec] = newCount.toString().split('.').map((el) => parseInt(el, 10));
+
+    // if no decimals, return newCount
+    if (!dec) return newCount;
+
+    if (int === 0) {
+      // if 0.5
+      const fr = new Fraction(newCount);
+      return `${fr.numerator}/${fr.denominator}`;
+    }
+    // 2.5 we want to display 2 1/2
+    const fr = new Fraction(newCount - int);
+    return `${int} ${fr.numerator}/${fr.denominator}`;
+  }
+  return '';
+};
+
+const createIngredient = (ingredient) => `
     <li class="recipe__item">
         <svg class="recipe__icon">
             <use href="img/icons.svg#icon-check"></use>
@@ -16,36 +39,11 @@ const createIngredient = ingredient => `
 `;
 
 export const clearIngredients = () => {
-    elements.recipe.innerHTML = '';
-}
-
-const formatCount = count => {
-    if (count) {
-        // 2.5 --> 2 1/2
-        // use max 4 decimal places
-        const newCount = Math.round(count * 10000) / 10000;
-        const [int, dec] = newCount.toString().split('.').map(el => parseInt(el, 10));
-        
-        // if no decimals, return newCount
-        if (!dec) return newCount;
-
-        if (int === 0) {
-            // if 0.5
-            const fr = new Fraction(newCount);
-            return `${fr.numerator}/${fr.denominator}`
-        } else {
-            // 2.5 we want to display 2 1/2 
-            const fr = new Fraction(newCount - int);
-            return `${int} ${fr.numerator}/${fr.denominator}`
-        }
-    } else {
-        return '';
-    }
-}
+  elements.recipe.innerHTML = '';
+};
 
 export const renderRecipe = (recipe, isLiked) => {
-    
-    const markup = `
+  const markup = `
             <figure class="recipe__fig">
                 <img src="${recipe.image}" alt="${recipe.title}" class="recipe__img">
                 <h1 class="recipe__title">
@@ -91,7 +89,7 @@ export const renderRecipe = (recipe, isLiked) => {
 
             <div class="recipe__ingredients">
                 <ul class="recipe__ingredient-list">
-                    ${recipe.ingredients.map(el => createIngredient(el)).join('')}
+                    ${recipe.ingredients.map((el) => createIngredient(el)).join('')}
 
                 </ul>
                 
@@ -117,16 +115,16 @@ export const renderRecipe = (recipe, isLiked) => {
 
                 </a>
             </div>`;
-    elements.recipe.insertAdjacentHTML('afterbegin', markup);        
-}
+  elements.recipe.insertAdjacentHTML('afterbegin', markup);
+};
 
-export const updateServingsIngredients = recipe => {
-    // Update servings
-    document.querySelector('.recipe__info-data--people').textContent = recipe.servings;
+export const updateServingsIngredients = (recipe) => {
+  // Update servings
+  document.querySelector('.recipe__info-data--people').textContent = recipe.servings;
 
-    // Update ingredients
-    const countEl = document.querySelectorAll('.recipe__count');
-    countEl.forEach((el, i) => {
-        el.textContent = formatCount(recipe.ingredients[i].count)
-    })
-}
+  // Update ingredients
+  const countEl = document.querySelectorAll('.recipe__count');
+  countEl.forEach((el, i) => {
+    el.textContent = formatCount(recipe.ingredients[i].count);
+  });
+};
