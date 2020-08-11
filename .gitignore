@@ -1,7 +1,8 @@
 .DS_Store
 node_modules
+Package-lock.json
+package.json
+webpack.config.js
 .babelrc
-.webpack.config.js
-.package.json
-.package.json-lock
+
 
