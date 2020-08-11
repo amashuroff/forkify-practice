@@ -1,8 +1,7 @@
 .DS_Store
-.babelrc
-.vscode
 node_modules
+.babelrc
+.webpack.config.js
+.package.json
+.package.json-lock
 
-package.json
-package-lock.json
-webpack.config.js
