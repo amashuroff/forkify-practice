@@ -3,6 +3,12 @@
 See: https://amashuroff.github.io/forkify-practice/dist/index.html
 ___
 
+###  Updates / Homework:
+
+* Implemented a function to delete all items from the shopping list
+
+___
+
 ### Functionality and the flow:
 * On search connects to the API and fetches the data (recipes)
 * Adds formatted recipes to the results panel (implemented pagination)

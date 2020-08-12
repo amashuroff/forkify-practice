@@ -6,9 +6,11 @@ export const elements = {
   resultsDiv: document.querySelector('.results'),
   resultsPages: document.querySelector('.results__pages'),
   recipe: document.querySelector('.recipe'),
+  shopping: document.querySelector('.shopping'),
   shoppingList: document.querySelector('.shopping__list'),
   likesMenu: document.querySelector('.likes__field'),
   likesPanel: document.querySelector('.likes__list'),
+  deleteAllItems: document.querySelector('.shopping__delete-all'),
 };
 
 export const elementStr = {

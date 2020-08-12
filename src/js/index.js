@@ -189,6 +189,8 @@ elements.recipe.addEventListener('click', (el) => {
   } else if (el.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
     // add data to shopping list
     controlList();
+    // render deleteAllItems btn
+    listView.renderDeleteAllBtn('render');
   } else if (el.target.matches('.recipe__love, .recipe__love *')) {
     // Like controller
     controlLikes();
@@ -212,3 +214,17 @@ elements.shoppingList.addEventListener('click', (el) => {
     state.list.updateCount(id, val);
   }
 });
+
+// handle delete all items from the shopping list
+
+elements.shopping.addEventListener('click', (el) => {
+  if (el.target.matches('.shopping__delete-all')) {
+    if (state.list) {
+      state.list.items = [];
+      listView.deleteAllItems();
+      listView.renderDeleteAllBtn('delete');
+    }
+  }
+});
+
+window.s = state;

@@ -490,3 +490,7 @@ body {
   .shopping__item:hover .shopping__delete {
     opacity: 1;
     visibility: visible; }
+  .shopping__delete-all {
+    display: none;
+    margin-top: 20px;
+  }

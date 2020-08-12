@@ -21,3 +21,12 @@ export const deleteItem = (id) => {
   const item = document.querySelector(`[data-itemid="${id}"]`);
   item.parentElement.removeChild(item);
 };
+
+export const deleteAllItems = () => {
+  elements.shoppingList.innerHTML = '';
+};
+
+export const renderDeleteAllBtn = (type) => {
+  // eslint-disable-next-line no-unused-expressions
+  type === 'render' ? elements.deleteAllItems.style.display = 'block' : elements.deleteAllItems.style.display = 'none';
+};
