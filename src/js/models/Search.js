@@ -1,7 +1,7 @@
-/* eslint-disable no-alert */
 // SEARCH MODEL
 // using Http request library
 import axios from 'axios';
+import { displayError } from '../view/searchView';
 
 export default class Search {
   constructor(query) {
@@ -14,7 +14,7 @@ export default class Search {
       const res = await axios(`https://forkify-api.herokuapp.com/api/search?q=${this.query}`);
       this.result = res.data.recipes;
     } catch (error) {
-      alert(error);
+      displayError();
     }
   }
 }

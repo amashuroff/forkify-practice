@@ -6,7 +6,8 @@ ___
 ###  Updates / Homework:
 
 * Implemented a function to delete all items from the shopping list
-
+* Improved error handling
+* Save list of ingredients in local storage
 ___
 
 ### Functionality and the flow:

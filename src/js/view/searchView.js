@@ -104,3 +104,17 @@ export const reduceTitle = (title, limit = 17) => {
   }
   return title;
 };
+
+export const displayError = () => {
+  const markup = `
+  <div class="search__error">
+    <h3>Please enter a valid name... something like pizza! --></h3>
+  </div>
+  `;
+  elements.searchForm.insertAdjacentHTML('beforebegin', markup);
+};
+
+export const removeError = () => {
+  const err = document.querySelector('.search__error');
+  if (err) err.parentElement.removeChild(err);
+};

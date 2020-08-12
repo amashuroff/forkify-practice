@@ -49,6 +49,7 @@ const controlSearch = async () => {
 // search for recipes
 elements.searchForm.addEventListener('submit', (e) => {
   e.preventDefault();
+  searchView.removeError();
   controlSearch();
 });
 
@@ -168,6 +169,14 @@ window.addEventListener('load', () => {
 
   // render likes in the likes field ul
   state.likes.likes.forEach((like) => likesView.renderLike(like));
+
+  // read local for saved list
+  state.list = new List();
+  state.list.readStorage();
+  if (state.list.items) {
+    state.list.items.forEach((el) => listView.renderItems(el));
+    listView.renderDeleteAllBtn('render');
+  }
 });
 
 // handling recipe render on load and hashchange
@@ -189,6 +198,8 @@ elements.recipe.addEventListener('click', (el) => {
   } else if (el.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
     // add data to shopping list
     controlList();
+    // add data to local storage
+    state.list.persistData();
     // render deleteAllItems btn
     listView.renderDeleteAllBtn('render');
   } else if (el.target.matches('.recipe__love, .recipe__love *')) {

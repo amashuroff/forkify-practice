@@ -29,4 +29,14 @@ export default class List {
   deleteAllItems() {
     this.items = [];
   }
+
+  persistData() {
+    localStorage.setItem('list', JSON.stringify(this.items));
+  }
+
+  readStorage() {
+    const storage = JSON.parse(localStorage.getItem('list'));
+
+    if (storage) this.items = storage;
+  }
 }
