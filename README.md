@@ -22,6 +22,9 @@ ___
 
 * How to implement MVC app architecture
 
+### MVC arhitecture:
+![alt text](https://github.com/amashuroff/forkify-practice/blob/master/architecture.png "MVC architecture")
+
 * How to set up Webpack:
   - use bundling + HtmlWebpackPlugin
   - use devServer
